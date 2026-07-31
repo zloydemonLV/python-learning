@@ -32,7 +32,7 @@ print(result)
 def add_product(products,name, price, stock):
     products.append({"name": name, "price": price, "stock": stock})
 add_product(products, "Ballantine's", 28, 9)
-print(products)
+# print(products)
 def update_stock(products, name, new_stock):
     for product in products:
         if product["name"] == name:
@@ -69,6 +69,7 @@ def cheapest_product(products):
     for product in products:
         if product["price"] < cheapest["price"]:
             cheapest = product
+
         return cheapest
 
 result = cheapest_product(products)
@@ -84,6 +85,42 @@ def sort_by_stock(products):
     return sorted_products
 result = sort_by_stock(products)
 print(result)
+
+def save_products(products):
+    with open("inventory.txt" , "w") as file:
+        for product in products:
+            file.write(
+                product["name"] + ";" +
+                str(product["price"]) + ";" +
+                str(product["stock"]) + "\n"
+            )
+save_products(products)
+
+def load_products():
+    products = []
+
+    with open("inventory.txt", "r") as file:
+        for line in file:
+            line = line.strip()
+
+            if not line:
+                continue
+
+            name, price, stock = line.split(";")
+
+            product = {
+                "name": name,
+                "price": int(price),
+                "stock": int(stock)
+            }
+
+            products.append(product)
+
+    return products
+products = load_products()
+print(products)
+
+
 
 
 

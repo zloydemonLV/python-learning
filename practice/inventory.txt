@@ -1,0 +1,4 @@
+Jack Daniel's;30;5
+Glenfiddich;60;2
+Red Label;22;15
+Ballantine's;28;9
