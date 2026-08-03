@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Jack Daniel's",
+        "price": 30,
+        "stock": 5
+    },
+    {
+        "name": "Glenfiddich",
+        "price": 60,
+        "stock": 2
+    },
+    {
+        "name": "Red Label",
+        "price": 22,
+        "stock": 12
+    },
+    {
+        "name": "Monkey Shoulder",
+        "price": 75,
+        "stock": 3
+    }
+]
