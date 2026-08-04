@@ -1,5 +1,92 @@
 import json
 
+def load_products():
+    with open("inventory.json", "r") as file:
+        return json.load(file)
+
+def save_products(products):
+    with open("inventory.json", "w") as file:
+        json.dump(products, file, indent=4)
+
+def find_product(products, name):
+    for product in products:
+        if product["name"].lower() == name.lower():
+            return product
+
+        return None
+
+
+def show_products():
+    products = load_products()
+
+    for product in products:
+        print(
+            f"Name: {product['name']} | "
+            f"Price: {product['price']} | "
+            f"Stock: {product['stock']}"
+        )
+
+
+def add_product():
+    products = load_products()
+
+    name = input("Product name: ")
+    price = int(input("Price: "))
+    stock = int(input("Stock: "))
+
+    found = False
+
+    for product in products:
+        if product["name"].lower() == name.lower():
+            found = True
+            break
+
+    if found:
+        print("Product already exists!")
+
+    else:
+        new_product = {
+            "name": name,
+            "price": price,
+            "stock": stock
+        }
+
+        products.append(new_product)
+
+        save_products(products)
+        print("Product added!")
+
+def sell_product():
+    products = load_products()
+
+    name = input("Product name: ")
+    quantity = int(input("Quantity: "))
+
+    product = find_product(products, name)
+    if product:
+        if product["stock"] >= quantity:
+            product["stock"] -= quantity
+            save_products(products)
+            print("Product sold!")
+
+        else:
+            print("Not enough stock!")
+    else:
+        print("Product not found!")
+
+def remove_product():
+    products = load_products()
+
+    name = input("Product name: ")
+
+    product = find_product(products, name)
+    if product:
+        product.remove(product)
+        save_products(products)
+        print("Product removed!")
+    else:
+        print("Product not found!")
+
 while True:
     print("\n=== Inventory Manager ===")
     print("1. Show products")
@@ -12,106 +99,18 @@ while True:
 
 
     if choice == "1":
-        with open("inventory.json", "r") as file:
-            products = json.load(file)
-
-        for product in products:
-            print(
-                f"Name: {product['name']} | "
-                f"Price: {product['price']} | "
-                f"Stock: {product['stock']}"
-            )
-
-
+        show_products()
 
     elif choice == "2":
-        with open("inventory.json", "r") as file:
-            products = json.load(file)
-
-        name = input("Product name: ")
-        price = int(input("Price: "))
-        stock = int(input("Stock: "))
-
-        found = False
-
-        for product in products:
-            if product["name"].lower() == name.lower():
-                found = True
-                break
-
-        if found:
-            print("Product already exists!")
-
-        else:
-            new_product = {
-                "name": name,
-                "price": price,
-                "stock": stock
-            }
-
-            products.append(new_product)
-
-            with open("inventory.json", "w") as file:
-                json.dump(products, file, indent=4)
-
-            print("Product added!")
-
+        add_product()
 
 
     elif choice == "3":
-        with open("inventory.json", "r") as file:
-            products = json.load(file)
-
-        name = input("Product name: ")
-        quantity = int(input("Quantity: "))
-
-        found = False
-
-        for product in products:
-            if product["name"].lower() == name.lower():
-                found = True
-
-                if product["stock"] >= quantity:
-                    product["stock"] -= quantity
-
-                    with open("inventory.json", "w") as file:
-                        json.dump(products, file, indent=4)
-
-                    print("Product sold!")
-
-                else:
-                    print("Not enough stock!")
-
-                break
-
-        if not found:
-            print("Product not found!")
-
+        sell_product()
 
 
     elif choice == "4":
-        with open("inventory.json", "r") as file:
-            products = json.load(file)
-
-        name = input("Product name: ")
-
-        found = False
-
-        for product in products:
-            if product["name"].lower() == name.lower():
-                products.remove(product)
-                found = True
-                break
-
-        if found:
-            with open("inventory.json", "w") as file:
-                json.dump(products, file, indent=4)
-
-            print("Product removed!")
-
-        else:
-            print("Product not found!")
-
+      remove_product()
 
 
     elif choice == "5":
@@ -121,37 +120,3 @@ while True:
     else:
         print("Invalid option!")
 
-    if choice == "3":
-        with open("inventory.json", "r") as file:
-            products = json.load(file)
-
-        name = input("Product name: ")
-        quantity = int(input("Quantity: "))
-
-        for product in products:
-            if product["name"] == name:
-                product["stock"] -= quantity
-                break
-        with open("inventory.json", "w") as file:
-            json.dump(products, file, indent=4)
-
-    if choice == "4":
-
-        with open("inventory.json", "r") as file:
-            products = json.load(file)
-
-        name = input("Product name: ")
-
-        for product in products:
-            if product["name"] == name:
-                products.remove(product)
-                break
-
-        with open("inventory.json", "w") as file:
-            json.dump(products, file, indent=4)
-
-        print("Product removed!")
-
-    if choice == "5":
-        print("Exiting...")
-        break
