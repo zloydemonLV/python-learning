@@ -87,7 +87,7 @@ result = sort_by_stock(products)
 print(result)
 
 def save_products(products):
-    with open("inventory.txt" , "w") as file:
+    with open("../practice/inventory.txt", "w") as file:
         for product in products:
             file.write(
                 product["name"] + ";" +
@@ -99,7 +99,7 @@ save_products(products)
 def load_products():
     products = []
 
-    with open("inventory.txt", "r") as file:
+    with open("../practice/inventory.txt", "r") as file:
         for line in file:
             line = line.strip()
 

@@ -18,5 +18,20 @@
         "name": "Monkey Shoulder",
         "price": 75,
         "stock": 3
+    },
+    {
+        "name": "Cola",
+        "price": 20,
+        "stock": 9
+    },
+    {
+        "name": "Jim Beam",
+        "price": 45,
+        "stock": 12
+    },
+    {
+        "name": "Red Bull",
+        "price": 15,
+        "stock": 43
     }
 ]
