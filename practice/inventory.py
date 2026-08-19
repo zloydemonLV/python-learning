@@ -47,17 +47,20 @@ def sell_product():
 
     name = input("Product name: ")
 
-    quantity = input_number("Quantity: ")
-
     product = find_products(products, name)
     if product:
-        if product["stock"] >= quantity:
-            product["stock"] -= quantity
-            save_products(products)
-            print("Product sold!")
+        while True:
+            quantity = input_number("Quantity: ", 1)
 
-        else:
+            if product["stock"] >= quantity:
+                break
+
             print("Not enough stock!")
+
+        product["stock"] -= quantity
+        save_products(products)
+        print("Product sold!")
+
     else:
         print("Product not found!")
 

@@ -1,10 +1,16 @@
 import json
 
-def input_number(message):
+def input_number(message, min_value=0, max_value=1000000):
     while True:
         try:
             number = int(input(message))
+
+            if number < min_value or number > max_value:
+                print("Number is out of range!")
+                continue
+
             return number
+
         except ValueError:
             print("Number must be a number!")
 

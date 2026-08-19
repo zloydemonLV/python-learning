@@ -11,7 +11,7 @@ def main():
         print("4. Remove product")
         print("5. Exit")
 
-        choice = input_number("Choose an option: ")
+        choice = input_number("Choose an option: ", 1, 5)
 
 
         if choice == 1:
