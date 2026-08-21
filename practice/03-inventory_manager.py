@@ -1,6 +1,8 @@
-
 from inventory import show_products, add_product, sell_product, remove_product
 from practice.utils import input_number
+from product import Product
+3
+
 
 def main():
     while True:

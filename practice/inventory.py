@@ -1,14 +1,17 @@
+from product import Product
 from utils  import input_number, load_products, save_products, find_products
 
 def show_products():
     products = load_products()
 
-    for product in products:
-        print(
-            f"Name: {product['name']} | "
-            f"Price: {product['price']} | "
-            f"Stock: {product['stock']}"
+    for data in products:
+        product = Product(
+            data["name"],
+            data["price"],
+            data["stock"]
         )
+
+        product.show_info()
 
 def add_product():
     products = load_products()
@@ -49,17 +52,18 @@ def sell_product():
 
     product = find_products(products, name)
     if product:
+        product_obj = Product(
+            product["name"],
+            product["price"],
+            product["stock"]
+        )
         while True:
             quantity = input_number("Quantity: ", 1)
 
-            if product["stock"] >= quantity:
+            if product_obj.sell(quantity):
                 break
-
-            print("Not enough stock!")
-
-        product["stock"] -= quantity
+        product["stock"] = product_obj.stock
         save_products(products)
-        print("Product sold!")
 
     else:
         print("Product not found!")
