@@ -1,7 +1,5 @@
-from inventory import show_products, add_product, sell_product, remove_product
+from inventory import show_products, add_product, sell_product, remove_product, restock_products
 from practice.utils import input_number
-from product import Product
-3
 
 
 def main():
@@ -11,9 +9,10 @@ def main():
         print("2. Add product")
         print("3. Sell product")
         print("4. Remove product")
-        print("5. Exit")
+        print("5. Restock product")
+        print("6. Exit")
 
-        choice = input_number("Choose an option: ", 1, 5)
+        choice = input_number("Choose an option: ", 1, 6)
 
 
         if choice == 1:
@@ -30,8 +29,12 @@ def main():
         elif choice == 4:
           remove_product()
 
-
         elif choice == 5:
+            restock_products()
+
+
+
+        elif choice == 6:
             print("Goodbye!")
             break
 

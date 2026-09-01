@@ -43,6 +43,28 @@ def add_product():
         save_products(products)
         print("Product added!")
 
+def restock_products():
+    products = load_products()
+
+    name = input("Product name: ")
+    product = find_products(products, name)
+    if product:
+        quantity = input_number("Quantity: ",)
+
+        product_obj = Product(
+            product["name"],
+            product["price"],
+            product["stock"]
+        )
+
+        product_obj.add_stock(quantity)
+        product["stock"] = product_obj.stock
+        save_products(products)
+        print("Stock updated!")
+    else:
+        print("Product not found!")
+
+
 
 
 def sell_product():

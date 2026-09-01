@@ -15,3 +15,7 @@ class Product:
         else:
             print("Not enough stock")
             return False
+
+    def add_stock(self, quantity):
+        self.stock += quantity
+
