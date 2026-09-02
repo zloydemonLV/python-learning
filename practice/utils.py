@@ -1,4 +1,6 @@
 import json
+from pathlib import Path
+
 
 def input_number(message, min_value=0, max_value=1000000):
     while True:
@@ -15,11 +17,14 @@ def input_number(message, min_value=0, max_value=1000000):
             print("Number must be a number!")
 
 def load_products():
-    with open("inventory.json", "r") as file:
+    file_path = Path(__file__).parent / "inventory.json"
+
+    with open(file_path, "r") as file:
         return json.load(file)
 
 def save_products(products):
-    with open("inventory.json", "w") as file:
+    file_path = Path(__file__).parent / "inventory.json"
+    with open(file_path, "w") as file:
         json.dump(products, file, indent=4)
 
 def find_products(products, name):

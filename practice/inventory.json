@@ -33,5 +33,10 @@
         "name": "Red Bull",
         "price": 15,
         "stock": 18
+    },
+    {
+        "name": "Sprite",
+        "price": 25,
+        "stock": 10
     }
 ]
