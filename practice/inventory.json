@@ -38,5 +38,10 @@
         "name": "Sprite",
         "price": 25,
         "stock": 10
+    },
+    {
+        "name": "Fanta",
+        "price": 25,
+        "stock": 55
     }
 ]
