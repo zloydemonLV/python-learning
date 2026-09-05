@@ -22,7 +22,7 @@
     {
         "name": "Cola",
         "price": 20,
-        "stock": 81
+        "stock": 93
     },
     {
         "name": "Jim Beam",
@@ -32,7 +32,7 @@
     {
         "name": "Red Bull",
         "price": 15,
-        "stock": 18
+        "stock": 15
     },
     {
         "name": "Sprite",
@@ -41,7 +41,7 @@
     },
     {
         "name": "Fanta",
-        "price": 25,
-        "stock": 55
+        "price": 15,
+        "stock": 43
     }
 ]
