@@ -18,6 +18,16 @@ class ProductUpdate(BaseModel):
     price: int
     stock: int
 
+class ProductResponse(BaseModel):
+    name:str
+    price:int
+    stock:int
+
+class MessageResponse(BaseModel):
+    message:str
+
+
+
 
 app = FastAPI()
 
@@ -25,11 +35,14 @@ app = FastAPI()
 def root():
     return {"message": "Inventory API is running"}
 
-@app.get("/products")
+@app.get("/products", response_model=list[ProductResponse])
 def get_products():
     return get_all_products()
 
-@app.get("/products/{product_name}")
+@app.get(
+    "/products/{product_name}",
+    response_model=ProductResponse
+)
 def get_product(product_name: str):
     products = get_product_by_name(product_name)
 
@@ -38,7 +51,7 @@ def get_product(product_name: str):
 
     return products
 
-@app.post("/products")
+@app.post("/products", response_model=ProductResponse)
 def create_product(product: ProductCreate):
     new_product = create_product_service(
         product.name,
@@ -53,7 +66,10 @@ def create_product(product: ProductCreate):
     return new_product
 
 
-@app.put("/products/{product_name}")
+@app.put(
+    "/products/{product_name}",
+        response_model=ProductResponse
+)
 def update_product(product_name: str, product: ProductUpdate):
     updated_product = update_product_service(
         product_name,
@@ -67,7 +83,10 @@ def update_product(product_name: str, product: ProductUpdate):
         )
     return updated_product
 
-@app.delete("/products/{product_name}")
+@app.delete(
+    "/products/{product_name}",
+        response_model=MessageResponse
+)
 def delete_product(product_name: str):
     deleted = delete_product_service(product_name)
 
