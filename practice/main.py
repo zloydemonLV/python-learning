@@ -1,9 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
-
-from practice import product
-from practice.utils import load_products, save_products
 from practice.service import (
+    get_all_products,
     get_product_by_name,
     create_product as create_product_service,
     update_product as update_product_service,
@@ -29,9 +27,7 @@ def root():
 
 @app.get("/products")
 def get_products():
-    products = load_products()
-
-    return products
+    return get_all_products()
 
 @app.get("/products/{product_name}")
 def get_product(product_name: str):
@@ -64,7 +60,11 @@ def update_product(product_name: str, product: ProductUpdate):
         product.price,
         product.stock,
     )
-
+    if updated_product is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Product not found",
+        )
     return updated_product
 
 @app.delete("/products/{product_name}")

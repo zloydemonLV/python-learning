@@ -11,6 +11,9 @@ def get_product_by_name(product_name):
 
     return None
 
+def get_all_products():
+    return load_products()
+
 def create_product(name, price, stock):
     products = load_products()
     for product in products:
