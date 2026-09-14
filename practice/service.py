@@ -1,18 +1,28 @@
-
+from practice.database import SessionLocal
+from practice.models import Product
 
 from practice.utils import load_products, save_products
 
 def get_product_by_name(product_name):
-    products = load_products()
+   db = SessionLocal()
+   product = db.query(Product).filter(
+       Product.name.ilike(product_name)
+   ).first()
 
-    for product in products:
-        if product["name"].lower() == product_name.lower():
-            return product
+   db.close()
 
-    return None
+
+   return product
+
+
 
 def get_all_products():
-    return load_products()
+    db = SessionLocal()
+    products = db.query(Product).all()
+    db.close()
+
+    return products
+
 
 def create_product(name, price, stock):
     products = load_products()
