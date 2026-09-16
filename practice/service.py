@@ -1,12 +1,13 @@
 from practice.database import SessionLocal
 from practice.models import Product
+from sqlalchemy import select
 
-from practice.utils import load_products, save_products
+
 
 def get_product_by_name(product_name):
    db = SessionLocal()
-   product = db.query(Product).filter(
-       Product.name.ilike(product_name)
+   product = db.scalars(
+       select(Product).where(Product.name.ilike(product_name))
    ).first()
 
    db.close()
@@ -18,51 +19,69 @@ def get_product_by_name(product_name):
 
 def get_all_products():
     db = SessionLocal()
-    products = db.query(Product).all()
+
+    products = db.scalars(select(Product)).all()
     db.close()
 
     return products
 
 
 def create_product(name, price, stock):
-    products = load_products()
-    for product in products:
+   db=SessionLocal()
 
-        if product["name"].lower() == name.lower():
-            return None
+   existing_product = db.scalars(
+       select(Product).where(Product.name.ilike(name))
+   ).first()
 
-    new_product = {
-        "name": name,
-        "price": price,
-        "stock": stock
-    }
+   if existing_product:
+       db.close()
+       return None
 
-    products.append(new_product)
-    save_products(products)
 
-    return new_product
+   new_product = Product(name=name, price=price, stock=stock)
+   db.add(new_product)
+   db.commit()
+   db.refresh(new_product)
+
+   db.close()
+
+   return new_product
 
 def update_product(product_name, price, stock):
-    products = load_products()
+   db = SessionLocal()
 
-    for product in products:
-        if product["name"].lower() == product_name.lower():
-            product["price"] = price
-            product["stock"] = stock
+   product = db.scalars(
+       select(Product).where(Product.name.ilike(product_name))
+   ).first()
 
-            save_products(products)
-            return product
-    return None
+   if product is None:
+       db.close()
+       return None
+
+   product.price = price
+   product.stock = stock
+
+   db.commit()
+   db.refresh(product)
+
+   db.close()
+   return product
 
 def delete_product(product_name):
-    products = load_products()
+    db = SessionLocal()
 
-    for product in products:
-        if product["name"].lower() == product_name.lower():
-            products.remove(product)
-            save_products(products)
+    product = db.scalars(
+        select(Product).where(Product.name.ilike(product_name))
+    ).first()
+
+    if product is None:
+        db.close()
+        return False
+
+    db.delete(product)
+    db.commit()
+    db.close()
+
+    return True
 
 
-            return True
-
-    return False
