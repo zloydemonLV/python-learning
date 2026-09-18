@@ -11,3 +11,4 @@ class Product(Base):
     name: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
     price: Mapped[int] = mapped_column(nullable=False)
     stock: Mapped[int] = mapped_column(nullable=False)
+    description: Mapped[str | None] = mapped_column(String(500), nullable=True)

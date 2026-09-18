@@ -22,7 +22,7 @@
     {
         "name": "Cola",
         "price": 20,
-        "stock": 93
+        "stock": 81
     },
     {
         "name": "Jim Beam",
@@ -43,5 +43,10 @@
         "name": "Fanta",
         "price": 15,
         "stock": 43
+    },
+    {
+        "name": "Class Azul",
+        "price": 75,
+        "stock": 12
     }
 ]
