@@ -1,8 +1,12 @@
 from practice.service import get_product_by_name
 
-product = get_product_by_name("Cola")
+def test_get_product_by_name():
+    product = get_product_by_name("Cola")
 
-if product:
-    print(product.id, product.name, product.price, product.stock)
-else:
-    print("Product not found")
+    assert product is not None
+    assert product.name == "Cola"
+
+def test_get_product_by_name_not_found():
+    product = get_product_by_name("Nonexistent product")
+
+    assert product is None
